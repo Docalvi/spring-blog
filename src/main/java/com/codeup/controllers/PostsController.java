@@ -27,16 +27,16 @@ public class PostsController {
 
     @GetMapping("/post")
     public String viewAll(Model model) {
-
+// Don't know why this variable is greyed out
         List<Post> posts = postsvc.findAll();
-        model.addAttribute("posts",postsvc.findAll());
+        model.addAttribute("posts", postsvc.findAll());
         return "posts/index";
     }
 
     @GetMapping("/posts/{id}")
     public String viewIndividualPost(@PathVariable long id, Model model) {
         Post post = postsvc.findPost(id);
-        model.addAttribute("post",post);
+        model.addAttribute("post", post);
         return "posts/show ";
     }
 

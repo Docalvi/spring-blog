@@ -37,4 +37,7 @@ public class PostSvc {
         save(new Post("Xbox one", "Slightly used."));
     }
 
+    private  void createPost(String title , String body){
+        save(new Post(title, body));
+    }
 }
