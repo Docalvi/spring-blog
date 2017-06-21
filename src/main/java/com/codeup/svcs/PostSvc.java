@@ -1,6 +1,9 @@
 package com.codeup.svcs;
 
 import com.codeup.models.Post;
+import com.codeup.repositories.PostRepository;
+import javafx.geometry.Pos;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,16 +15,15 @@ import java.util.List;
  */
 @Service("postSvc")
 public class PostSvc {
+    private PostRepository postsDao;
 
-    List<Post> posts = new ArrayList<>();
-
-    public PostSvc(){
-        createPosts();
+    @Autowired
+    public PostSvc(PostRepository postsDao) {
+        this.postsDao = postsDao;
     }
 
-    public List<Post> findAll(){
-        return posts;
-    }
+
+    Iterable<Post> posts = postsDao.findAll();
 
     public Post findPost(long id){
         return posts.get((int) id - 1);
