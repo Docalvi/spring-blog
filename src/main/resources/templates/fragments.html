@@ -26,6 +26,17 @@
 
     </div><!-- /.container-fluid -->
 </nav>
+<form th:fragment="form">
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" name="title" id="title" class="form-control" th:field="*{title}"/>
+    </div>
+    <div>
+        <label for="body">Body</label>
+        <input type="text" name="body" id="body" class="form-control" th:field="*{body}"/>
+    </div>
+    <button class="btn btn-default">Edit</button>
+</form>
 
 <div th:fragment="scripts">
     <script src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>

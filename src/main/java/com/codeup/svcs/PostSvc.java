@@ -6,15 +6,16 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
- * Created by emilioalvarado on 6/20/17.
+ * Created by fer on 6/20/17.
  */
 @Service("postSvc")
 public class PostSvc {
 
     List<Post> posts = new ArrayList<>();
 
-    public PostSvc() {
+    public PostSvc(){
         createPosts();
     }
 
@@ -26,18 +27,21 @@ public class PostSvc {
         return posts.get((int) id - 1);
     }
 
-    public Post save(Post post) {
-        post.setId((long) posts.size() + 1);
+    public Post save(Post post){
+        post.setId(( long) posts.size() + 1);
         posts.add(post);
         return post;
     }
 
-    private void createPosts() {
-        save(new Post("ps4", "new"));
-        save(new Post("Xbox one", "Slightly used."));
+    private void createPosts(){
+        save(new Post("ps4", "shiny and new"));
+        save(new Post("xbox juan", "not so shiny and new"));
     }
 
-    private  void createPost(String title , String body){
+    public void createPost(String title, String body){
         save(new Post(title, body));
     }
+
+
+
 }

@@ -15,31 +15,31 @@ import java.util.List;
 @Controller
 public class PostsController {
 
-    private final PostSvc postsvc;
+    private final PostSvc postSvc;
 
     @Autowired
-    public PostsController(PostSvc postsvc) {
-        this.postsvc = postsvc;
+    public PostsController(PostSvc postSvc) {
+        this.postSvc = postSvc;
     }
 
-    @GetMapping("/post")
+    @GetMapping("/posts")
     public String viewAll(Model model) {
-// Don't know why this variable is greyed out
-        List<Post> posts = postsvc.findAll();
-        model.addAttribute("posts", postsvc.findAll());
-        return "posts/index";
+
+        List<Post> posts = postSvc.findAll();
+        model.addAttribute("posts", posts);
+
+        return "/posts/index";
     }
 
     @GetMapping("/posts/{id}")
     public String viewIndividualPost(@PathVariable long id, Model model) {
-        Post post = postsvc.findPost(id);
+        Post post = postSvc.findPost(id);
         model.addAttribute("post", post);
-        return "posts/show ";
+        return "/posts/show";
     }
 
     @GetMapping("/posts/create")
     public String showPostForm(Model model) {
-
         model.addAttribute("post", new Post());
         return "/posts/create";
     }
@@ -51,8 +51,15 @@ public class PostsController {
             Model model
     ) {
         Post post = new Post(title, body);
+        postSvc.save(post);
         model.addAttribute("post", post);
-
         return "/posts/create";
+    }
+
+    @GetMapping("/posts/{id}/edit")
+    public String showEdit(@PathVariable long id, Model model) {
+        Post post = postSvc.findPost(id);
+        model.addAttribute("post", post);
+        return "/posts/edit";
     }
 }

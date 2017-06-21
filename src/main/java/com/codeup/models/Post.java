@@ -1,12 +1,10 @@
 package com.codeup.models;
 
-import java.security.PublicKey;
-
 public class Post {
+
+    private long id;
     private String title;
     private String body;
-    private Long id;
-
 
     public Post(String title, String body) {
         this.title = title;
@@ -15,14 +13,6 @@ public class Post {
 
     public Post() {
 
-    }
-
-    public Long getId(){
-        return id;
-    }
-
-    public void setId(long id){
-        this.id = id;
     }
 
     public String getTitle() {
@@ -39,5 +29,13 @@ public class Post {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

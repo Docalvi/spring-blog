@@ -7,10 +7,10 @@
 </head>
 <body>
 <nav th:replace="fragments :: my-navbar"></nav>
-<div class="contianer">
-    <form action="/posts/create"
+<div>
+    <form th:action="${'/posts/' + post.id + '/edit'}"
           method="post"
-          th:object="${post}" >
+          th:object="${post}">
           <!--th:include="form">-->
         <div class="form-group">
             <label for="title">Title</label>
@@ -20,7 +20,7 @@
             <label for="body">Body</label>
             <input type="text" name="body" id="body" class="form-control" th:field="*{body}"/>
         </div>
-        <button class="btn btn-default">Submit</button>
+        <button class="btn btn-default">Edit</button>
     </form>
 </div>
 </body>
