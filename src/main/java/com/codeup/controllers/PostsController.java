@@ -44,7 +44,7 @@ public class PostsController {
         return "/posts/create";
     }
 
-    @PostMapping("/post/create")
+    @PostMapping("/posts/create")
     public String savePost(
             @RequestParam(name = "title") String title,
             @RequestParam(name = "body") String body,
