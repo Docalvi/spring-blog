@@ -13,6 +13,10 @@ public class Post {
         this.body = body;
     }
 
+    public Post() {
+
+    }
+
     public Long getId(){
         return id;
     }
