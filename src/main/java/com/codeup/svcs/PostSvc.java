@@ -9,30 +9,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-/**
- * Created by fer on 6/20/17.
- */
+
 @Service("postSvc")
 public class PostSvc {
-    private  PostRepository postsDao;
+    private PostRepository postsDao;
 
     @Autowired
     public PostSvc(PostRepository postsDao) {
         this.postsDao = postsDao;
     }
 
-        public Iterable<Post> findAll(){
+    public Iterable<Post> findAll() {
         return postsDao.findAll();
     }
 
 
-    public Post findPost(long id){
+    public Post findPost(long id) {
         return postsDao.findOne(id);
     }
 
-    public Post save(Post post){
+    public Post save(Post post) {
         postsDao.save(post);
         return post;
+    }
+
+    public void deletePost(long id){
+        postsDao.delete(id);
     }
 
 //    public Post edit(Post post){

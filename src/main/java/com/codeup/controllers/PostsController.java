@@ -1,47 +1,48 @@
 package com.codeup.controllers;
 
 import com.codeup.models.Post;
+import com.codeup.models.User;
+import com.codeup.repositories.UsersRepository;
 import com.codeup.svcs.PostSvc;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * Created by emilioalvarado on 6/19/17.
- */
 @Controller
 public class PostsController {
 
     private final PostSvc postSvc;
+    private final UsersRepository usersDao;
 
     @Autowired
-    public PostsController(PostSvc postSvc) {
+    public PostsController(PostSvc postSvc, UsersRepository usersDao) {
         this.postSvc = postSvc;
+        this.usersDao = usersDao;
     }
 
     @GetMapping("/posts")
     public String viewAll(Model model) {
-
         Iterable<Post> posts = postSvc.findAll();
         model.addAttribute("posts", posts);
-
-        return "/posts/index";
+        return "posts/index";
     }
 
     @GetMapping("/posts/{id}")
     public String viewIndividualPost(@PathVariable long id, Model model) {
+        // Inside the method that shows an individual post, create a new post object and pass it to the view.
         Post post = postSvc.findPost(id);
         model.addAttribute("post", post);
-        return "/posts/show";
+        return "posts/show";
     }
 
-    @GetMapping("/posts/create")
+    @GetMapping("/posts/create")  // what we type in the browser
     public String showPostForm(Model model) {
         model.addAttribute("post", new Post());
-        return "/posts/create";
+        return "posts/create"; // this is the location of the template in the templates directory
     }
 
     @PostMapping("/posts/create")
@@ -50,16 +51,32 @@ public class PostsController {
             @RequestParam(name = "body") String body,
             Model model
     ) {
-        Post post = new Post(title, body);
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Post post = new Post(title, body, user);
         postSvc.save(post);
         model.addAttribute("post", post);
-        return "/posts/create";
+        return "posts/create";
     }
 
     @GetMapping("/posts/{id}/edit")
-    public String showEdit(@PathVariable long id, Model model) {
+    public String showEditForm(@PathVariable long id, Model model) {
+        // TODO: Find this post in the data source using the service
         Post post = postSvc.findPost(id);
+        // TODO: Pass the post found to the view
         model.addAttribute("post", post);
-        return "/posts/edit";
+        return "posts/edit";
+    }
+
+    @PostMapping("/posts/{id}/edit")
+    public String editPost(@ModelAttribute Post post){
+        postSvc.save(post);
+        return "redirect:/posts/" + post.getId();
+    }
+
+    @PostMapping("/post/delete")
+    public String deletePost(@ModelAttribute Post post, Model model){
+        postSvc.deletePost(post.getId());
+        model.addAttribute("msg", "Your post was deleted correctly");
+        return "return the view with a success message";
     }
 }
