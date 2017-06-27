@@ -5,6 +5,9 @@ import com.codeup.models.User;
 import com.codeup.repositories.UsersRepository;
 import com.codeup.svcs.PostSvc;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -60,9 +63,7 @@ public class PostsController {
 
     @GetMapping("/posts/{id}/edit")
     public String showEditForm(@PathVariable long id, Model model) {
-        // TODO: Find this post in the data source using the service
         Post post = postSvc.findPost(id);
-        // TODO: Pass the post found to the view
         model.addAttribute("post", post);
         return "posts/edit";
     }
@@ -76,7 +77,19 @@ public class PostsController {
     @PostMapping("/post/delete")
     public String deletePost(@ModelAttribute Post post, Model model) {
         postSvc.deletePost(post.getId());
-        model.addAttribute("msg", "Your post was deleted correctly");
-        return "return the view with a success message";
+        model.addAttribute("msg", "Your post was deleted");
+        return "Success";
     }
+
+    @GetMapping("/posts.json")
+    public @ResponseBody
+    Iterable<Post> viewAllPostsInJSONFormat(
+    ) {
+        return postSvc.findAll();
+    }
+    @GetMapping("/posts/ajax")
+    public String viewAllPostsUsingAnAjaxCall() {
+        return "posts/ajax";
+    }
+
 }

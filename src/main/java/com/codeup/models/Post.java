@@ -1,5 +1,7 @@
 package com.codeup.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -16,6 +18,7 @@ public class Post {
     private String body;
 
     @OneToOne
+    @JsonManagedReference
     private User owner;
 
     public Post(String title, String body, User owner) {
