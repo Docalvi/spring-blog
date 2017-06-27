@@ -22,7 +22,7 @@ public class ProfileViewController {
     public String portfolio() {
         return "profile/portfolio";
     }
-    
+
     @Autowired
     public ProfileViewController(PostSvc postsvc) {
         this.postsvc = postsvc;

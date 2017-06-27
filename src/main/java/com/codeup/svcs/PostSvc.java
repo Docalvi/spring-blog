@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 @Service("postSvc")
 public class PostSvc {
     private PostRepository postsDao;
@@ -33,7 +32,7 @@ public class PostSvc {
         return post;
     }
 
-    public void deletePost(long id){
+    public void deletePost(long id) {
         postsDao.delete(id);
     }
 

@@ -20,7 +20,7 @@ public class UsersController {
 
 
     @PostMapping("/users/register")
-    public String saveUser(@ModelAttribute User user){
+    public String saveUser(@ModelAttribute User user) {
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         usersDao.save(user);
@@ -28,7 +28,6 @@ public class UsersController {
         return "redirect:/posts";
 
     }
-
 
 
 }
