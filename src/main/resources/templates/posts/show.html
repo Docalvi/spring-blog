@@ -11,5 +11,8 @@
     <h2>Body: <span th:text="${post.body}"></span></h2>
     <h2>Email: <span th:text="${post.owner.email}"></span></h2>
 </div>
+<div>
+    <a th:href="${'/posts/' + post.id + '/edit'}">Edit</a>
+</div>
 </body>
 </html>
